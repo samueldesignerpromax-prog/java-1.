@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Site Java Minimalista</title>
+    <style>
+        body { font-family: Arial; text-align: center; margin-top: 60px; background: #f0f0f0; }
+        .card { background: #fff; padding: 40px; border-radius: 20px; display: inline-block; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; }
+        button { padding: 12px 30px; font-size: 18px; background: #3498db; color: #fff; border: none; border-radius: 30px; cursor: pointer; }
+        button:hover { background: #2980b9; }
+        p { font-size: 20px; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>☕ Site com Java Puro</h1>
+        <p>Clique no botão para atualizar o contador:</p>
+        <button onclick="atualizarContador()">🔄 Atualizar</button>
+        <p id="resultado">Visitas: 0</p>
+    </div>
+
+    <script>
+        async function atualizarContador() {
+            try {
+                const res = await fetch('/api/contador');
+                const data = await res.json();
+                document.getElementById('resultado').textContent = 'Visitas: ' + data.visitas;
+            } catch (e) {
+                document.getElementById('resultado').textContent = 'Erro ao conectar.';
+            }
+        }
+        // Carrega ao abrir a página
+        atualizarContador();
+    </script>
+</body>
+</html>
